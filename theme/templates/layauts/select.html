@@ -1,0 +1,18 @@
+{% load static tailwind_tags %}
+{% tailwind_css %}
+
+<select id="servicio-select" class="bg-white border rounded px-3 py-2">
+    <option value="">Seleccionar servicio</option>
+    {% for servicio in servicios %}
+        <option value="{{ servicio }}">{{ servicio }}</option>
+    {% endfor %}
+</select>
+<p id="count-pacientes" class="text-sm text-gray-600 mb-4"></p>
+<div class="mb-4">
+    <label for="search-input" class="block font-bold mb-1">Buscar paciente:</label>
+    <div class="flex">
+        <input type="text" id="search-input" class="w-full border rounded-l py-2 px-3" placeholder="Ingrese nombre o apellido">
+        <button id="search-button" class="bg-blue-500 text-white rounded-r px-4 py-2">Buscar</button>
+    </div>
+</div>
+

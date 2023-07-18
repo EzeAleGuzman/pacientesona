@@ -1,0 +1,28 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% tailwind_css %}
+    <title>Editar Paciente</title>
+</head>
+<body class="bg-gray-100">
+    {% include 'layauts/nav.html' %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-center">
+            <div class="space-y-3 w-30">
+                <h1>Editar Paciente</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" type="submit">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'layauts/footer.html' %}
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

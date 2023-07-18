@@ -1,0 +1,29 @@
+{% load static tailwind_tags %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% tailwind_css %}
+    <title>Inicio Sesion</title>
+</head>
+<body>
+    {% include 'layauts/nav.html' %}
+    <h1>Inicio de sesion requerido</h1>
+    <div class='container flex justify-center'>
+    <form class="w-50 rounded-lg bg-white-500 p-5 shadow-lg shadow-zinc-500/50" action="" method="post">
+       {% csrf_token %}
+        <label for="usuario" >Usuario <input class="bg-zinc-300 hover:bg-zinc-600 hover:cursor-pointer p-3 rounded-lg mb-3 hover:shadow-md hover:shadow-zinc-500/50" type="text" name="username"> </label>
+        <br>
+        <label for="pass">
+            Contraseña
+            <input class="bg-zinc-300 hover:bg-zinc-600 hover:cursor-pointer p-3 rounded-lg mb-3 hover:shadow-md hover:shadow-zinc-500/50" type="password" name="password">
+        </label>
+        <button class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" type="submit" type="submit">Iniciar sesion</button>
+    </form>
+</div>
+</body>
+</html>
