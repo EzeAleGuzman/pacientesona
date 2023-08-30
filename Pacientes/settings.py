@@ -28,6 +28,9 @@ INSTALLED_APPS = [
     'theme',
     'django.contrib.staticfiles',
     'pacientes_2023',
+    'import_export',
+    'Vehiculos',
+    
     
 ]
 

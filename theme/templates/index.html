@@ -6,11 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% tailwind_css %}
-    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+</style>
+    <link rel="icon" href="{% static 'img/oñativia.ico' %}" sizes="48x48" type="image/ico" />
+    <title> Dr. Arturo Oñativia 2.0</title>
 </head>
 <body>
-<div  class="m-2 md:m-0 bg-gray-100">
-<div class="bg-gray-100">
+<div  class="m-2 md:m-0 bg-white">
+<div class="bg-white">
     {% include 'layauts/nav.html' %}
     <div class="container mx-auto px-4 py-8">
         {% if messages %}
@@ -33,35 +37,71 @@
             {% endfor %}
         </div>
         {% endif %}
-    <br>   
+    <br>
 </div>
+
 {% include 'layauts/select.html' %}
-      
-<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pacientes-container ">
-    {% for paciente in pacientes %}
-    <div class="m-2 bg-zinc-500 hover:bg-zinc-600 hover:cursor-pointer p-3 rounded-lg hover:shadow-md hover:shadow-zinc-500/50 flex flex-col justify-between h-full ">
+
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pacientes-container">
+    {% if perms.app_pacientes_2023.can_add_paciente %}
+    <div class="mb-3">
+        <a href="{% url 'agregar_paciente' %}" class="bg-blue-500 text-white px-4 py-2 rounded-md">Agregar Paciente</a>
+    </div>
+    {% endif %}
+
+
+    {% for paciente in pacientes|dictsort:"habitacion" %}
+    <div class="m-2 bg-zinc-500 hover:bg-zinc-600 hover:cursor-pointer p-3 rounded-lg hover:shadow-md hover:shadow-zinc-500/50 flex flex-col justify-between h-full">
         <div>
             <h1 class="text-lg font-bold text-white mb-2">{{ paciente.nombre }} {{ paciente.apellido }}</h1>
             <p class="text-sm text-white mb-2">Servicio: {{ paciente.servicio }}</p>
             <p class="text-sm text-white mb-2">Habitación: {{ paciente.habitacion }}</p>
             <p class="text-sm text-white mb-2">Cama: {{ paciente.cama }}</p>
+            {% if user.username == "Enfermeria" %} 
+            <p class="text-sm text-white mb-2">Diagnostico: {{ paciente.diagnostico }}</p>
+            {% endif %}
+
         </div>
+        {% if user.username == "Cuidadores" %}
+    <div class="mt-2">
+        <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
+            <span class="ml-2 text-white">Tiene parte médico</span>
+        </label>
+    </div>
+{% endif %}
+
         <div class="flex justify-around mt-4">
+            {% if perms.app_pacientes_2023.can_change_paciente %}
             <form method="get" action="{% url 'editar_paciente' paciente.id %}">
                 <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded-md text-sm">Editar</button>
             </form>
-            <form method="post" action="{% url 'borrar_paciente' paciente.id %}">
-                {% csrf_token %}
-                <button type="submit"  class="bg-red-500 text-white px-3 py-1 rounded-md text-sm">Borrar</button>
-            </form>
+            {% endif %}
+            {% if perms.app_pacientes_2023.can_delete_paciente %}
+            <form method="post" action="{% url 'borrar_paciente' paciente.id %}" id="delete-form-{{ paciente.id }}">
+    {% csrf_token %}
+    <button type="button" onclick="showConfirmation({{ paciente.id }})" class="bg-red-500 text-white px-3 py-1 rounded-md text-sm">Borrar</button>
+</form>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
 </div>
-    
+
 </div>
 
     {% include 'layauts/footer.html' %}
     <script src='{% static "js/index.js" %}'></script>
+        <script>
+        function showConfirmation(pacienteId) {
+            const deleteForm = document.getElementById(`delete-form-${pacienteId}`);
+
+            const confirmation = confirm("¿Estás seguro de que deseas borrar este paciente?");
+
+            if (confirmation) {
+                deleteForm.submit();
+            }
+        }
+        </script>
 </body>
 </html>

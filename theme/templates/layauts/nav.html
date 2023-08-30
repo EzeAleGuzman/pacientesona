@@ -1,14 +1,19 @@
 {% load static tailwind_tags %}
 {% tailwind_css %}
 
-<div class="flex justify-between py-3">
-    <Link to='/pacientes'>
-        <h1 class="font-bold text-3xl mb-4">
-            <a href="{% url 'index' %}">Vista pacientes</a>
-        </h1>
-    </Link>
-    <button class="bg-yellow-500 p-3 rounded-lg">
-        <a href="{% url 'salir' %}">Cerrar sesión</a>
-    </button>
-    <a href="{% url 'agregar_paciente' %}" class="bg-blue-500 text-white px-4 py-2 rounded-md p-3 ">Agregar Paciente</a>
+<div class="flex justify-between items-center">
+    <div class="flex items-center">
+        <link to='/pacientes'>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/logo2.png' %}" alt="Logo hospital" class="h-10 w-10">
+            </a>
+        </link>
+    </div>
+    <div class="flex flex-col gap-2">
+        <button class="bg-yellow-500 p-3 rounded-lg">
+            <a href="{% url 'salir' %}">Cerrar sesión</a>
+        </button>
+
+    </div>
 </div>
+

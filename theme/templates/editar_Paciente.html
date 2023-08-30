@@ -17,12 +17,21 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" type="submit">Guardar</button>
+                    <div class="mt-4 space-x-2">
+                        <button class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" type="submit">Guardar</button>
+                        <button class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded" type="button" onclick="cancelEdit()">Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
     {% include 'layauts/footer.html' %}
     <script src="{% static 'js/index.js' %}"></script>
+    <script>
+        function cancelEdit() {
+            // Redirigir a la página de inicio o realizar otras acciones necesarias
+            window.location.href = "{% url 'index' %}";
+        }
+    </script>
 </body>
 </html>

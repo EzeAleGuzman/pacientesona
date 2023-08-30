@@ -1,0 +1,71 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% tailwind_css %}
+    <title>Buscar Vehículo</title>
+</head>
+<body>
+    {% include 'layauts/nav.html' %}
+    <hr><hr>
+    <div class="container mx-auto p-5">
+        <h3 class="font-mono text-2xl font-semibold text-center mb-4">Vehiculos Registrados</h3>
+        <form class="text-center" action="{% url 'buscar_vehiculo' %}" method="get">
+            <div class="flex">
+                <input
+                  type="text"
+                  id="search-input"
+                  class="w-full border rounded-l py-2 px-3"
+                  name="q" value="{{ query }}"
+                  placeholder="Ingrese Petente"
+                />
+                <button
+                  id="search-button"
+                  class="bg-blue-500 text-white rounded-r px-4 py-2"
+                >
+                  Buscar
+                </button>
+              </div>
+        </form>
+    
+        <!-- Mostrar la ficha del vehículo encontrado -->
+        {% if vehiculos %}
+        <div class="mt-4 rounded-lg shadow p-4 bg-white">
+            <h1 class="text-lg font-semibold mb-4">Ficha de Vehículo</h1>
+            <p><span class="font-semibold">Patente:</span> <span id="patente" class="ml-2">{{ vehiculos.0.patente }}</span></p>
+            <p><span class="font-semibold">Modelo:</span> <span id="modelo" class="ml-2">{{ vehiculos.0.modelo }}</span></p>
+            <p><span class="font-semibold">Agente:</span> <span id="agente" class="ml-2">{{ vehiculos.0.agente }}</span></p>
+            <p><span class="font-semibold">Servicio:</span> <span id="servicio" class="ml-2">{{ vehiculos.0.servicio }}</span></p>
+            <p><span class="font-semibold">Teléfono:</span> <span id="telefono" class="ml-2">{{ vehiculos.0.telefono }}</span></p>
+        </div>
+        {% endif %}
+        {% if vehiculos %}
+        <div class="mt-4 rounded-lg shadow p-4 bg-white font-mono">
+            <h1 class="text-lg font-mono mb-4">Ficha de Vehículo</h1>
+            <p><span class="font-semibold">Patente:</span> <span id="patente" class="ml-2">{{ vehiculos.0.patente }}</span></p>
+            <p><span class="font-semibold">Modelo:</span> <span id="modelo" class="ml-2">{{ vehiculos.0.modelo }}</span></p>
+            <p><span class="font-semibold">Agente:</span> <span id="agente" class="ml-2">{{ vehiculos.0.agente }}</span></p>
+            <p><span class="font-semibold">Servicio:</span> <span id="servicio" class="ml-2">{{ vehiculos.0.servicio }}</span></p>
+            <p><span class="font-semibold">Teléfono:</span> <span id="telefono" class="ml-2">{{ vehiculos.0.telefono }}</span></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        var patenteElement = document.getElementById('patente');
+        var modeloElement = document.getElementById('modelo');
+        var agenteElement = document.getElementById('agente');
+        var servicioElement = document.getElementById('servicio');
+        var telefonoElement = document.getElementById('telefono');
+      
+        patenteElement.textContent = patenteElement.textContent.toUpperCase();
+        modeloElement.textContent = modeloElement.textContent.toUpperCase();
+        agenteElement.textContent = agenteElement.textContent.toUpperCase();
+        servicioElement.textContent = servicioElement.textContent.toUpperCase();
+        telefonoElement.textContent = telefonoElement.textContent.toUpperCase();
+    </script>
+</body>
+</html>

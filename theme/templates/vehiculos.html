@@ -1,0 +1,84 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% tailwind_css %}
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+          href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <title>Document</title>
+          </head>
+          <body>
+            <div class="space-y-3 w-30">
+              <table class="w-30 border border-gray-300 w-full">
+                <thead>
+                  <tr class="border border-gray-300 bg-gray-200">
+                    <th
+                      class="p-4 text-center uppercase font-18 tracking-wider"
+                    >
+                      Patente
+                    </th>
+                    <th
+                      class="p-4 text-center uppercase font-18 tracking-wider"
+                    >
+                      Modelo
+                    </th>
+                    <th
+                      class="p-4 text-center uppercase font-18 tracking-wider"
+                    >
+                      Agente
+                    </th>
+                    <th
+                      class="p-4 text-center uppercase font-18 tracking-wider"
+                    >
+                      Servicio
+                    </th>
+                    <th
+                      class="p-4 text-center uppercase font-18 tracking-wider"
+                    >
+                      Telefono
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for vehiculo in vehiculos %}
+                  <tr class="">
+                    <td class="p-4 text-center">{{ vehiculo.patente }}</td>
+                    <td class="p-4 text-center">{{ vehiculo.modelo }}</td>
+                    <td class="p-4 text-center">{{ vehiculo.agente }}</td>
+                    <td class="p-4 text-center">{{ vehiculo.servicio }}</td>
+                    <td class="p-4 text-center">{{ vehiculo.telefono }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </body>
+        </html>
+      </body>
+    </html>
+  </body>
+</html>
