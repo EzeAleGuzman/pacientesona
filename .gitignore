@@ -37,7 +37,7 @@ build/
 *.egg-info/
 
 # Database
-*.sqlite3
+db.sqlite3
 
 # Thumbnails
 __pycache__/
