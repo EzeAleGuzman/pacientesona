@@ -30,10 +30,10 @@ class PacienteResource(resources.ModelResource):
 
 class PacienteResourceWithDefaults(PacienteResource):
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-        # Establece valores predeterminados para los campos que no se proporcionen durante la importación
+      
         default_values = {
-            'servicio': 'Clinica Medica',  # Valor predeterminado para el servicio
-            'habitacion': '',  # Puedes ajustar el valor predeterminado según tu caso
+            'servicio': 'Clinica Medica',  
+            'habitacion': '',  
             'cama': '',  # Puedes ajustar el valor predeterminado según tu caso
         }
         for row in dataset.dict:
