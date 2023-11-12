@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyo
+*.pyc
+
+# Virtual Environment
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.idea/
+
+# Cache
+*.log
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Distribution directories
+dist/
+build/
+*.egg-info/
+
+# Database
+*.sqlite3
+
+# Thumbnails
+__pycache__/
+thumbs/
