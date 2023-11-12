@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
+
+    <title>Internos</title>
+</head>
+
+<body class="text-center">
+   
+    {% include 'layauts/nav2.html' %}
+    <div class="my-4">Telefonos internos</div>
+    
+
+
+    <input class="border border-radius-5 border-black p-2 m-3" type="text" id="buscador" placeholder="Buscar Interno...">
+    <br>
+    
+
+    <div class="mx-auto w-3/4">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4">Servicio</th>
+                    <th class="py-2 px-4">Interno</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interno in internos %}
+                <tr class="{% if forloop.counter0|divisibleby:2 %}bg-teal-exact2{% else %}bg-gray-100{% endif %}">
+
+                    <td class="py-2 px-4">{{ interno.servicio }}</td>
+                    <td class="py-2 px-4">{{ interno.interno }}</td>
+                    
+                </tr>
+               
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+   
+    
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+            </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buscador = document.getElementById("buscador");
+        const filas = document.querySelectorAll("tbody tr");
+
+        buscador.addEventListener("input", function () {
+            const filtro = buscador.value.toLowerCase();
+
+            filas.forEach(function (fila) {
+                const servicio = fila.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                const interno = fila.querySelector("td:nth-child(2)").textContent.toLowerCase();
+
+                if (servicio.includes(filtro) || interno.includes(filtro)) {
+                    fila.style.display = "table-row";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+</html>

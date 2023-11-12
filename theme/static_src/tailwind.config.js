@@ -42,7 +42,13 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'teal-exact': '#02ADC7',
+                'teal-exact2':  '#67b7c4',
+                
+
+        },
     },
     plugins: [
         /**
@@ -55,4 +61,4 @@ module.exports = {
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
     ],
-}
+    }}

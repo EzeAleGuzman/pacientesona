@@ -7,6 +7,8 @@ from .resources import VehiculoResource
 class VehiculoAdmin(ImportExportModelAdmin):
     resource_class = VehiculoResource
     
+    search_fields = ['patente', 'agente'] 
+    
     # Para omitir filas vacías y omitir filas sin cambios en la importación
     def import_data(self, dataset, dry_run=False, *args, **kwargs):
         kwargs['skip_unchanged'] = True

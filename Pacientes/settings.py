@@ -26,10 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'tailwind',
     'theme',
+    'django_browser_reload',
     'django.contrib.staticfiles',
     'pacientes_2023',
     'import_export',
     'Vehiculos',
+    'Internos',
     
     
 ]
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     
 ]
 
@@ -120,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "theme/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type

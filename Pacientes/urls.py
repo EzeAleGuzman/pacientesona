@@ -5,8 +5,11 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("__reload__/", include("django_browser_reload.urls")),
     path('pacientes/', include ('pacientes_2023.urls')),
     path('vehiculos/', include ('Vehiculos.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', RedirectView.as_view(pattern_name='index'), name='login_redirect'),
+    path('internos/', include ('Internos.urls')),
+    
 ]

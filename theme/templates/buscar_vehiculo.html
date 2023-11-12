@@ -9,11 +9,11 @@
     <title>Buscar Vehículo</title>
 </head>
 <body>
-    {% include 'layauts/nav.html' %}
+    {% include 'layauts/nav2.html' %}
     <hr><hr>
-    <div class="container mx-auto p-5">
-        <h3 class="font-mono text-2xl font-semibold text-center mb-4">Vehiculos Registrados</h3>
-        <form class="text-center" action="{% url 'buscar_vehiculo' %}" method="get">
+    <div class="flex justify-center items-center m-2   bg-zinc-200 rounded-lg ">
+        <h3 class="font-mono text-2xl font-bold text-center mb-2">Vehiculos-Agentes</h3>
+        <form class="text-center max-w-sm" action="{% url 'buscar_vehiculo' %}" method="get">
             <div class="flex">
                 <input
                   type="text"
@@ -24,36 +24,35 @@
                 />
                 <button
                   id="search-button"
-                  class="bg-blue-500 text-white rounded-r px-4 py-2"
+                  class="bg-teal-exact text-white rounded-r px-4 py-2"
                 >
                   Buscar
                 </button>
               </div>
         </form>
+      </div>
     
         <!-- Mostrar la ficha del vehículo encontrado -->
+      
         {% if vehiculos %}
-        <div class="mt-4 rounded-lg shadow p-4 bg-white">
-            <h1 class="text-lg font-semibold mb-4">Ficha de Vehículo</h1>
-            <p><span class="font-semibold">Patente:</span> <span id="patente" class="ml-2">{{ vehiculos.0.patente }}</span></p>
-            <p><span class="font-semibold">Modelo:</span> <span id="modelo" class="ml-2">{{ vehiculos.0.modelo }}</span></p>
-            <p><span class="font-semibold">Agente:</span> <span id="agente" class="ml-2">{{ vehiculos.0.agente }}</span></p>
-            <p><span class="font-semibold">Servicio:</span> <span id="servicio" class="ml-2">{{ vehiculos.0.servicio }}</span></p>
-            <p><span class="font-semibold">Teléfono:</span> <span id="telefono" class="ml-2">{{ vehiculos.0.telefono }}</span></p>
+        <div class="flex justify-center items-center m-2">
+          <!-- Div principal para centrar el contenido -->
+          <div class="w-full max-w-sm   mx-auto my-4 bg-cyan border rounded-lg shadow-lg">
+            <h2 class="bg-teal-exact2 text-center text-2xl font-bold leading-none text-gray-900">
+              <span id="patente" class="ml-2">{{ vehiculos.0.patente }}</span>
+            </h2>
+            <hr>
+            <p><span class="font-bold mr-2">Modelo:</span> <span id="modelo" class="ml-2">{{ vehiculos.0.modelo }}</span></p>
+            <p><span class="font-bold mr-2">Agente:</span> <span id="agente" class="ml-2">{{ vehiculos.0.agente }}</span></p>
+            <p><span class="font-bold mr-2">Servicio:</span> <span id="servicio" class="ml-2">{{ vehiculos.0.servicio }}</span></p>
+            <p><span class="font-bold mr-2">Teléfono:</span> <span id="telefono" class="ml-2">{{ vehiculos.0.telefono }}</span></p>
+          </div>
         </div>
-        {% endif %}
-        {% if vehiculos %}
-        <div class="mt-4 rounded-lg shadow p-4 bg-white font-mono">
-            <h1 class="text-lg font-mono mb-4">Ficha de Vehículo</h1>
-            <p><span class="font-semibold">Patente:</span> <span id="patente" class="ml-2">{{ vehiculos.0.patente }}</span></p>
-            <p><span class="font-semibold">Modelo:</span> <span id="modelo" class="ml-2">{{ vehiculos.0.modelo }}</span></p>
-            <p><span class="font-semibold">Agente:</span> <span id="agente" class="ml-2">{{ vehiculos.0.agente }}</span></p>
-            <p><span class="font-semibold">Servicio:</span> <span id="servicio" class="ml-2">{{ vehiculos.0.servicio }}</span></p>
-            <p><span class="font-semibold">Teléfono:</span> <span id="telefono" class="ml-2">{{ vehiculos.0.telefono }}</span></p>
-        </div>
-        {% endif %}
-    </div>
+    {% endif %}
+    
 
+    
+    
     <script>
         var patenteElement = document.getElementById('patente');
         var modeloElement = document.getElementById('modelo');
