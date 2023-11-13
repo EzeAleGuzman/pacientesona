@@ -41,7 +41,8 @@ def index(request):
     pacientes = Paciente.objects.all()
     servicios = Paciente.objects.values_list('servicio', flat=True).distinct()
     pertenece_admin = request.user.groups.filter(name='admins').exists()
-    return render(request, 'index.html', {'pacientes': pacientes, 'servicios': servicios,'pertenece_admin': pertenece_admin,})
+    pertenece_Cuidadores = request.user.groups.filter(name='Cuidadores').exists()
+    return render(request, 'index.html', {'pacientes': pacientes, 'servicios': servicios,'pertenece_admin': pertenece_admin, 'pertenece_Cuidadores' : pertenece_Cuidadores})
 
 @login_required
 def borrar_paciente(request, paciente_id):

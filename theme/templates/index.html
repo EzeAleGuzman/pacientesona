@@ -70,7 +70,7 @@
           <hr>
           <p><span class="font-bold mr-2">Habitación y Cama:</span> <span id="modelo" class="ml-2">{{ paciente.habitacion|default:"-" }} {{ paciente.cama|default:"-" }}</span></p>
           <p><span class="font-bold mr-3">Servicio:</span> <span id="agente" class="font-bold mr-3">{{ paciente.servicio|default:"--" }}</span></p>
-        {% if pertenece_admin %}
+        {% if not pertenece_Cuidadores %}
             <p><span class="font-bold mr-2">Diagnostico:</span> <span id="servicio" class="ml-2">{{ paciente.diagnostico }}</span></p>
             <p><span class="font-bold mr-3">Fecha de Ingreso:</span> <span id="fecha_ingreso" class="font-bold mr-3">{{ paciente.fecha_ingreso|default:"--" }}</span></p>
             <p><span class="font-bold mr-3">Fecha de Egreso:</span> <span id="fecha_egreso" class="font-bold mr-3">{{ paciente.fecha_egreso|default:"--"  }}</span></p>
