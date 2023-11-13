@@ -1,6 +1,7 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-
+   
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,11 @@
 <body class="text-center">
    
     {% include 'layauts/nav2.html' %}
-    <div class="my-6">Telefonos internos</div>
+    <div class="my-6 text-2xl focus:bg-teal-exact">Teléfonos internos</div>
     
 
 
-    <input class="border border-radius-5 border-black p-3 m-3" type="text" id="buscador" placeholder="Buscar Interno...">
+    <input class="border border-black p-3 m-3 rounded" type="text" id="buscador" placeholder="Buscar Interno...">
     <br>
     
 
@@ -44,7 +45,7 @@
 
    
     
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+                
             </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

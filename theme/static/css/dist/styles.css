@@ -1358,6 +1358,26 @@ video {
   z-index: 10;
 }
 
+.focus\:border-teal-exact:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(2 173 199 / var(--tw-border-opacity));
+}
+
+.focus\:border-red-950:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(69 10 10 / var(--tw-border-opacity));
+}
+
+.focus\:border-red-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+.focus\:bg-teal-exact:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(2 173 199 / var(--tw-bg-opacity));
+}
+
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1377,6 +1397,11 @@ video {
 .focus\:ring-red-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity));
+}
+
+.active\:border-teal-exact:active {
+  --tw-border-opacity: 1;
+  border-color: rgb(2 173 199 / var(--tw-border-opacity));
 }
 
 @media (prefers-color-scheme: dark) {
