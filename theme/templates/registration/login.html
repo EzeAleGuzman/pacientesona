@@ -24,19 +24,19 @@
     <form class="rounded-lg bg-white-500 p-5 shadow-lg shadow-zinc-500/50" action="" method="post">
       {% csrf_token %}
       <div class="md:w-full px-3">
-        <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="usuario">
+        <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="username">
           Usuario
         </label>
         <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" type="text"
-          name="username">
+          name="username" id="username" autocomplete="on">
       </div>
       <br />
       <div class="md:w-full px-3">
-        <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="pass">
+        <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="password">
           Contraseña
         </label>
         <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" type="password"
-          name="password">
+          name="password" id="password">
       </div>
       <button class="w-full mt-4 px-4 py-2 bg-teal-exact hover:text-black text-white rounded" type="submit"
         type="submit">Iniciar sesion</button>
