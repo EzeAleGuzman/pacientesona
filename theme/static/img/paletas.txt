@@ -1,8 +1,0 @@
-
-claros paleta
-
-#F2F2F2
-#152C40
-#06ADBF
-#0D0D0D
-#04BFBF
