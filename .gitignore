@@ -3,46 +3,35 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.pyo
-*.pyc
+*.py[co]
 
 # Virtual Environment
 venv/
 env/
-*.pyc
-*.pyo
-*.pyd
+*.env
+.Python
+pythonenv*
 
-# IDE
-.idea/
-
-# Cache
+# Django
 *.log
-
-# Compiled files
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# Dependency directories
-node_modules/
-bower_components/
-
-static_src/
-
-# Distribution directories
-dist/
-build/
-*.egg-info/
-
-
-
-# Database
 db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+*.pyc
+*.bak
 
-# Thumbnails
-__pycache__/
-thumbs/
+# Tailwind CSS
+.node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor-specific
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

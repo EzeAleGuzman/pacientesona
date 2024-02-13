@@ -1,0 +1,58 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Documento y Versión</title>
+</head>
+<body>
+    {% include 'layauts/nav2.html' %}
+
+    <div class="container mx-auto p-4">
+
+
+<h2 class="text-xl font-bold mb-4">Agregar Nueva Versión</h2>
+    
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-4">
+        {{ version_documento_form.documento.label_tag }}
+        {{ version_documento_form.documento }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.version.label_tag }}
+        {{ version_documento_form.version }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.archivo_pdf.label_tag }}
+        {{ version_documento_form.archivo_pdf }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.archivo_word.label_tag }}
+        {{ version_documento_form.archivo_word }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.fecha_creacion.label_tag }}
+        {{ version_documento_form.fecha_creacion }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.fecha_revision.label_tag }}
+        {{ version_documento_form.fecha_revision }}
+    </div>
+    <div class="mb-4">
+        {{ version_documento_form.fecha_implementacion.label_tag }}
+        {{ version_documento_form.fecha_implementacion }}
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar Versión</button>
+    <button onclick="window.history.back()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+
+</form>
+
+
+</div>
+    
+{% include 'layauts/footer.html' %}
+</body>
+</html>

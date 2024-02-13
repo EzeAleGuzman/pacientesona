@@ -10,13 +10,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
     </style>
     <link rel="icon" href="{% static 'img/logonuevo.png' %}" sizes="48x48" type="image/png" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
 
-    <title> Dr. Arturo Oñativia 2.0</title>
+  <title>Oña 2.0 </title>
 </head>
 <body >
 <div  class="m-2">
-< class="">
+<div class="">
     {% include 'layauts/nav2.html' %}
     <hr class="bg-teal-exact">
     <hr class= "bg-teal-exact">
@@ -45,27 +45,30 @@
     <br>
 </div>
 <div id="messages"></div>
+
+{% if pertenece_admin %}
+
+{% comment %} Agregar Paciente {% endcomment %}
+    {% comment %} <div class="mb-3">
+        <a href="{% url 'agregar_paciente' %}" class="bg-teal-exact text-white px-4 py-2 rounded-md">Agregar Paciente</a>
+    </div> {% endcomment %}
+    <br> <br>
+    {% endif %}
 {% include 'layauts/select.html' %}
 
 
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pacientes-container">
 
-<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pacientes-container">
-  
-    {% if pertenece_admin %}
-{% comment %} Agregar Paciente {% endcomment %}
-    <div class="mb-3">
-        <a href="{% url 'agregar_paciente' %}" class="bg-teal-exact text-white px-4 py-2 rounded-md">Agregar Paciente</a>
-    </div>
-    <br> <br>
-    {% endif %}
+
 
     {% for paciente in pacientes|dictsort:"habitacion" %}
+     {% if paciente.estado == "Internado" %}
     <div>
     <div class="flex justify-center items-center m-2   bg-zinc-200 rounded-lg ">
         <!-- Div principal para centrar el contenido -->
         <div class="w-full max-w-l  mx-auto my-4 bg-cyan border rounded-lg shadow-lg">
           <h2 class="bg-teal-exact2 text-center text-2xl font-bold leading-none text-gray-900">
-            <span id="patente" class="ml-2">{{ paciente.apellido }} {{ paciente.nombre }}</span>
+            <span id="paciente" class="ml-2">{{ paciente.apellido }} {{ paciente.nombre }}</span>
           </h2>
           <hr>
           <p><span class="font-bold mr-2">Habitación y Cama:</span> <span id="modelo" class="ml-2">{{ paciente.habitacion|default:"-" }} {{ paciente.cama|default:"-" }}</span></p>
@@ -76,25 +79,26 @@
             <p><span class="font-bold mr-3">Fecha de Egreso:</span> <span id="fecha_egreso" class="font-bold mr-3">{{ paciente.fecha_egreso|default:"--"  }}</span></p>
             <p><span class="font-bold mr-3">Estado:</span> <span id="estado" class="font-bold mr-3">{{ paciente.estado }}</span></p>
             <p><span class="font-bold mr-3">Anotaciones:</span> <span id="anotaciones" class="font-bold mr-3">{{ paciente.anotaciones|default:"--"}}</span></p>
-          {% endif %}
-     
         </div>
-    
-    </div>
+         {% endif %}
+
+
         {% if user.username == "Cuidadores" %}
-        <div class="flex justify-around mt-2">
-            <label class="inline-flex items-center">
-                <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
+         </div>
+    <div class="mt-2">
+        <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
             <span class="ml-2 text-gray-800">Tiene parte médico</span>
-            </label>
-        </div>
-        <div class="flex justify-around mt-2">
-            <label class="inline-flex items-center">
-                <input type="checkbox" class="form-checkbox text-blue-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
+        </label>
+        <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
             <span class="ml-2 text-gray-800">Acompañante</span>
-            </label>
-        </div>
+        </label>
+    </div>
+
+
         {% endif %}
+    </div>
         <div class="flex justify-around mt-2">
             {% if pertenece_admin %}
             <form method="get" action="{% url 'editar_paciente' paciente.id %}">
@@ -109,36 +113,40 @@
             </form>
             {% endif %}
         </div>
-
-</div>
-    {% endfor %} 
-    
     </div>
+    {% endif %}
+    {% endfor %}
 
+    </div>
+</div>
+</div>
+</div>
 
 
 {% comment %} Modal Confirmacion de eliminar {% endcomment %}
-<div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-60dark:hover:text-white" data-modal-hide="popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="p-4 md:p-5 text-center">
-                <svg class="mx-auto mb-4 text-red-700 w-12 h-12 dark:text-red-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <svg class="mx-auto mb-4 text-red-700 w-12 h-12 dark:text-red-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" >
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-300 dark:text-gray-200">Estas seguro de borrar el Registro?</h3>
                 <button data-confirm-button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                     Borrar Registro
                 </button>
-                <button data-cancel-button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                    No, cancelar 
+                <button  type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" data-modal-hide="popup-modal" >
+                    No, cancelar
                 </button>
             </div>
+        </div>
         </div>
     </div>
 </div>
@@ -150,46 +158,43 @@
 
     {% include 'layauts/footer.html' %}
     <script src='{% static "js/index.js" %}'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
-    
-            deleteButtons.forEach(deleteButton => {
-                deleteButton.addEventListener('click', function () {
-                    // Obtén el ID del paciente desde el atributo de datos
-                    const pacienteId = deleteButton.dataset.pacienteId;
-    
-                    // Verifica si hay un pacienteId antes de mostrar el modal
-                    if (pacienteId && !isNaN(pacienteId)) {  // Verifica que pacienteId sea un número
-                        const modal = document.getElementById('popup-modal');
-                        modal.classList.remove('hidden');
-    
-                        const confirmButton = modal.querySelector('[data-confirm-button]');
-                        const cancelButton = modal.querySelector('[data-cancel-button]');
-    
-                        // Agrega un manejador de eventos al botón de confirmación
-                        confirmButton.addEventListener('click', function () {
-                            // Obtén el formulario y envíalo
-                            const form = document.getElementById(`delete-form-${pacienteId}`);
-                            if (form) {
-                                form.submit();
-                            }
-    
-                            // Oculta el modal después de enviar el formulario
-                            modal.classList.add('hidden');
-                        });
-    
-                        // Agrega un manejador de eventos al botón de cancelar para ocultar el modal
-                        cancelButton.addEventListener('click', function () {
-                            modal.classList.add('hidden');
-                        });
-                    }
-                });
+    <script >
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
+
+        deleteButtons.forEach(deleteButton => {
+            deleteButton.addEventListener('click', function () {
+                // Obtén el ID del paciente desde el atributo de datos
+                const pacienteId = deleteButton.dataset.pacienteId;
+
+                // Verifica si hay un pacienteId antes de mostrar el modal
+                if (pacienteId && !isNaN(pacienteId)) {  // Verifica que pacienteId sea un número
+                    const modal = document.getElementById('popup-modal');
+                    modal.classList.remove('hidden');
+
+                    const confirmButton = modal.querySelector('[data-confirm-button]');
+                    const cancelButton = modal.querySelector('[data-cancel-button]');
+
+                    // Agrega un manejador de eventos al botón de confirmación
+                    confirmButton.addEventListener('click', function () {
+                        // Obtén el formulario y envíalo
+                        const form = document.getElementById(`delete-form-${pacienteId}`);
+                        if (form) {
+                            form.submit();
+                        }
+
+                        // Oculta el modal después de enviar el formulario
+                        modal.classList.add('hidden');
+                    });
+
+                    // Agrega un manejador de eventos al botón de cancelar para ocultar el modal
+                    cancelButton.addEventListener('click', function () {
+                        modal.classList.add('hidden');
+                    });
+                }
             });
         });
-    </script>
-
-
-
+    });</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 </body>
 </html>

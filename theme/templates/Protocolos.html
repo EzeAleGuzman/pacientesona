@@ -1,0 +1,128 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Documento y Versión</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+</head>
+<body>
+    {% include 'layauts/nav2.html' %}
+
+    <div class="container mx-auto p-3">
+        <h1 class="text-2xl font-bold mb-4">Crear Documento</h1>
+        <form method="post" enctype="multipart/form-data" class="mb-8">
+            {% csrf_token %}
+            <div class="mb-4">
+                {{ crear_documento_form.clase.label_tag }}
+                {{ crear_documento_form.clase }}
+            </div>
+            
+            <div class="mb-4">
+
+                {{ crear_documento_form.nombre.label_tag }}
+                {{ crear_documento_form.nombre }}
+            </div>
+           
+          
+            <div class="mb-4">
+                {{ crear_documento_form.codigo.label_tag }}
+                {{ crear_documento_form.codigo }}
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Documento</button>
+        </form>
+
+        <select id="servicio-clase">
+            <option value="">Seleccionar clase</option>
+            {% for documento in documentos %}
+            <option value="{{ documento.clase }}">{{ documento.clase }}</option>
+            {% endfor %}
+        </select>
+        <div id="documento-lista" class="container mx-auto text-center">
+            <div class="mt-4">
+                <h3 class="text-xl font-bold mb-4">Documentos</h3>
+
+                <table class="border-collapse border border-gray-400 w-full">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 border text-xs">Tipó Documento</th>
+                            <th class="px-4 py-2 border text-xs">Nombre</th>
+                            <th class="px-4 py-2 border text-xs">Última Versión</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for documento in documentos %}
+                        <tr class="documento" data-clase="{{ documento.clase }}">
+                            <td class="px-2 py-1 border text-xs">{{ documento.clase }}</td>
+                            <td class="px-2 py-1 border text-xs">{{ documento.nombre }}</td>
+                            <td class="px-4 py-2 border mb-3">
+                                <div class="mb-3 text-xs">{{ documento.codigo }}</div>
+                                <div class="mb-3"><a href="{{ documento.versiones.last.archivo_pdf.url }}" target="_blank" class="text-xs ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded">PDF</a><a href="{{ documento.versiones.last.archivo_word.url }}" target="_blank" class="text-xs ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded">word</a></div>
+                                <div id="otrasVersiones-{{ documento.id }}" style="display: none;">
+                                    <ul class="list-inside list-decimal pl-4">
+                                        {% for version in documento.versiones.all %}
+                                            {% if not forloop.first %}
+                                                <li class="block mb-4 mt-4">
+                                                    <div class="mb-3">{{ documento.codigo }}</div>
+                                                    <div class="mb-3"><a href="{{ version.archivo.url }}" target="_blank" class="text-xs ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded mb-6">PDF</a></div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <button onclick="mostrarOtrasVersiones('{{ documento.id }}')" class="text-xs bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">+ versiones</button>
+                            </td>
+                            {% comment %} <td class="px-4 py-2 border">
+                                <a href="{% url 'agregar_version' documento.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Agregar nueva versión</a>
+                            </td> {% endcomment %}
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+       
+        
+        
+        
+
+</body>
+    
+{% include 'layauts/footer.html' %}
+<script>
+    function mostrarOtrasVersiones(documentoId) {
+        const elemento = document.getElementById(`otrasVersiones-${documentoId}`);
+        if (elemento.style.display === 'none') {
+            elemento.style.display = 'block';
+        } else {
+            elemento.style.display = 'none';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var selectClase = document.getElementById("servicio-clase");
+        var documentos = document.querySelectorAll('.documento');
+
+        selectClase.addEventListener("change", function() {
+            var claseSeleccionada = selectClase.value;
+            for (var i = 0; i < documentos.length; i++) {
+                var documento = documentos[i];
+                if (claseSeleccionada === '' || documento.dataset.clase === claseSeleccionada) {
+                    // Mostrar el documento si coincide con la clase seleccionada o si no se ha seleccionado ninguna clase
+                    documento.style.display = 'table-row';
+                } else {
+                    // Ocultar el documento si no coincide con la clase seleccionada
+                    documento.style.display = 'none';
+                }
+            }
+        });
+    });
+</script>
+</html>

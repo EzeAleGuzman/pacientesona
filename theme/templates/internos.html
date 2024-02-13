@@ -1,26 +1,140 @@
 {% load static %}
 {% load static tailwind_tags %}
+{% load tailwind_filters %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-   
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
 
     <title>Internos</title>
 </head>
 
 <body class="text-center">
-   
+
     {% include 'layauts/nav2.html' %}
-    <div class="my-6 text-2xl focus:bg-teal-exact">Teléfonos internos</div>
-    
 
-
-    <input class="border border-black p-3 m-3 rounded" type="text" id="buscador" placeholder="Buscar Interno...">
+    <hr>
+    <hr>
     <br>
-    
+    <!-- Botton Modal Agregar_interno -->
+    <button data-modal-target="agregar_interno" data-modal-toggle="agregar_interno"
+        class="block p-3 m-auto text-white bg-teal-exact hover:bg-teal-exact focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm"
+        type="button">
+        Agregar Interno
+    </button>
+
+    <!-- Main modal agregar_interno -->
+    <div id="agregar_interno" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow ">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
+                        data-modal-hide="agregar_interno">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4">
+                    <form action="{% url 'agregar_interno' %}" method='POST'>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br>
+
+                        <div class="py-5">
+                            <button type="submit"
+                                class="text-white bg-teal-exact hover:bg-teal-exact focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-teal-exact dark:hover:bg-teal-exact focus:outline-none dark:focus:ring-blue-800">Agregar</button>
+                        </div>
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.errors }}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- Modal footer -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Confirmacion de eliminar  -->
+    <div id="popup-modal" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                    <button type="button"
+                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-60dark:hover:text-white"
+                        data-modal-hide="popup-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center items-center">
+                        <svg class="mx-auto mb-4 text-red-700 w-12 h-12 dark:text-red-700" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-300 dark:text-gray-200">Estas seguro de borrar el
+                            Registro?</h3>
+                        <button data-confirm-button type="submit"
+                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                            Borrar Registro
+                        </button>
+                        <button type="button" data-cancel-button
+                            class="text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-400 dark:text-gray-600 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-300 dark:focus:ring-gray-600"
+                            data-modal-hide="popup-modal">
+                            No, cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="my-6 text-2xl focus:bg-teal-exact">Teléfonos internos</div>
+
+    <form>
+        <label for="buscador" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="mx-auto w-3/4">
+            <input type="search" id="buscador"
+                class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                placeholder="Buscar Interno" required>
+
+        </div>
+    </form>
+    <br>
+
 
     <div class="mx-auto w-3/4">
         <table class="w-full border-collapse">
@@ -28,6 +142,7 @@
                 <tr class="bg-gray-200">
                     <th class="py-2 px-4">Servicio</th>
                     <th class="py-2 px-4">Interno</th>
+                    <th class="py-2 px-4">Acccion</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,20 +151,83 @@
 
                     <td class="py-2 px-4">{{ interno.servicio }}</td>
                     <td class="py-2 px-4">{{ interno.interno }}</td>
+
+
+
+                    <td class="flex flex-row items-center">  <a href="{% url 'editar_interno' interno.id %}" class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  m-0.5">
+                        Editar
+                    </a>
+                    <br>
+                    </form>
+
+                        <form method="post" action="{% url 'borrar_interno' interno.id %}"
+                            id="delete-form-{{ interno.id }}">
+                            {% csrf_token %}
+                            <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                                data-interno-id="{{ interno.id }}"
+                                class="text-white bg-red-700 hover:bg-red-500 focus:ring-4 focus:ring-red-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 m-2">Borrar</button>
+                        </form>
+                    </td>
+
+
                     
                 </tr>
-               
+
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    {% include 'layauts/footer.html' %}
 
-   
-    
-                
-            </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
+
+            deleteButtons.forEach(deleteButton => {
+                deleteButton.addEventListener('click', function () {
+                    // Obtén el ID del interno desde el atributo de datos
+                    const internoId = deleteButton.dataset.internoId;
+
+                    // Verifica si hay un internoId antes de mostrar el modal
+                    if (internoId && !isNaN(internoId)) {  // Verifica que internoId sea un número
+                        const modal = document.getElementById('popup-modal');
+                        modal.classList.remove('hidden');
+
+
+                        const confirmButton = modal.querySelector('[data-confirm-button]');
+                        const cancelButton = modal.querySelector('[data-cancel-button]');
+
+                        // Agrega un manejador de eventos al botón de confirmación
+                        confirmButton.addEventListener('click', function () {
+                            // Obtén el formulario y envíalo
+                            const form = document.getElementById(`delete-form-${internoId}`);
+                            if (form) {
+                                form.submit();
+                            }
+
+                            // Oculta el modal después de enviar el formulario
+                            modal.classList.add('hidden');
+                        });
+
+                        // Agrega un manejador de eventos al botón de cancelar para ocultar el modal
+                        if (cancelButton) {
+                            cancelButton.addEventListener('click', function () {
+                                var closeButton = document.querySelector('[data-modal-hide="popup-modal"]');
+                                var modal = document.getElementById('popup-modal');
+
+                                if (closeButton && modal) {
+                                    modal.classList.add('hidden');
+                                }
+                            });
+                        } else {
+                            console.error('No se encontró el botón de cancelar en el DOM.');
+                        }
+                    }
+                });
+            });
+        });
+        console.log("Script loaded successfully.");
+
         const buscador = document.getElementById("buscador");
         const filas = document.querySelectorAll("tbody tr");
 
@@ -67,7 +245,19 @@
                 }
             });
         });
-    });
-</script>
+
+        const form = document.querySelector("form");
+        const submitButton = form.querySelector("button[type='submit']");
+
+        form.addEventListener("submit", function () {
+            submitButton.disabled = true;
+        });
+        $(function () {
+
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+
+</body>
 
 </html>

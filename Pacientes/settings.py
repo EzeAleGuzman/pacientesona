@@ -26,16 +26,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'tailwind',
     'theme',
+    'widget_tweaks',
+    "crispy_forms",
+    "crispy_tailwind",
     'django_browser_reload',
     'django.contrib.staticfiles',
     'pacientes_2023',
     'import_export',
     'Vehiculos',
     'Internos',
+    'protocolos',
     
     
 ]
 
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 TAILWIND_APP_NAME = 'theme'
 
 INTERNAL_IPS = [
@@ -126,6 +134,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "theme/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

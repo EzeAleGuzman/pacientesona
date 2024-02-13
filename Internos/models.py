@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Interno(models.Model):
-    servicio = models.CharField(max_length=80, blank=True)
+    servicio = models.CharField(max_length=80, blank=False)
     interno = models.CharField(max_length=80, blank=True)
     
     

@@ -1,6 +1,6 @@
 from django.db import models
 
-
+# Create your models here.
 class Paciente(models.Model):
 
     nombre = models.CharField(max_length=80)
@@ -20,7 +20,7 @@ class Paciente(models.Model):
         ('Coordinacion', 'Coordinacion'),
         ('Casa de Madres', 'Casa de Madres'),
     ]
-    servicio = models.CharField(max_length=50, choices=OPCIONES_SERVICIO,blank=True, null=True)
+    servicio = models.CharField(max_length=50, choices=OPCIONES_SERVICIO,blank=True, default='-')
     habitacion = models.CharField(max_length=80,)
     cama = models.CharField(max_length=80,blank=True,null=True)
     diagnostico = models.TextField(max_length=80, default='Sin diagnóstico')

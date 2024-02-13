@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Guardar Archivo e Imagen en Django & Python 🐍</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  {% load static %}
+  <div class="container mx-auto text-center">
+    <div class="mt-4">
+      <h2 class="text-2xl font-bold">Lista de Registros</h2>
+      <hr class="my-4">
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {% for version in versiones %}
+      {% if version.documento.archivo %}
+      <div class="p-4 border border-gray-300 rounded-lg">
+        <a href="{{ version.documento.archivo.url }}" target="_blank" class="text-blue-500 hover:underline">Ver documento</a>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p class="text-gray-500">No hay Registros.</p>
+      {% endfor %}
+    </div>
+  </div>
+  {% include 'layauts/footer.html' %}
+
+</body>
+</html>

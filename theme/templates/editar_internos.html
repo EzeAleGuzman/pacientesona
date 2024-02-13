@@ -1,0 +1,44 @@
+{% load static %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+
+    <title>Internos</title>
+</head>
+
+<body class="text-center">
+
+    {% include 'layauts/nav2.html' %}
+
+  <div class="container mx-auto mt-8">
+    
+    <h1 class="text-2xl font-bold mb-4">Editar {{ interno.servicio }}</h1>
+    <form method="post" class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+      {% csrf_token %}
+      
+      {{ form|crispy }}
+
+      <div class="mt-4">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+   
+  </div>
+  {% include 'layauts/footer.html' %}
+
+</body>
+
+</html>
