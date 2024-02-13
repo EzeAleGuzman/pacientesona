@@ -16,7 +16,7 @@
 </head>
 <body >
 <div  class="m-2">
-<div class="">
+< class="">
     {% include 'layauts/nav2.html' %}
     <hr class="bg-teal-exact">
     <hr class= "bg-teal-exact">
@@ -49,7 +49,7 @@
 
 
 
-<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pacientes-container">
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pacientes-container">
   
     {% if pertenece_admin %}
 {% comment %} Agregar Paciente {% endcomment %}
@@ -79,15 +79,22 @@
           {% endif %}
      
         </div>
+    
+    </div>
         {% if user.username == "Cuidadores" %}
-    <div class="mt-2">
-        <label class="inline-flex items-center">
-            <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
+        <div class="flex justify-around mt-2">
+            <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox text-green-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
             <span class="ml-2 text-gray-800">Tiene parte médico</span>
-        </label>
-    </div>
+            </label>
+        </div>
+        <div class="flex justify-around mt-2">
+            <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox text-blue-500" name="parte_medico" {% if paciente.tiene_parte_medico %}checked{% endif %}>
+            <span class="ml-2 text-gray-800">Acompañante</span>
+            </label>
+        </div>
         {% endif %}
-    </div>
         <div class="flex justify-around mt-2">
             {% if pertenece_admin %}
             <form method="get" action="{% url 'editar_paciente' paciente.id %}">
@@ -102,14 +109,13 @@
             </form>
             {% endif %}
         </div>
-    </div>
+
+</div>
     {% endfor %} 
     
     </div>
-</div>
-</div>
-</div>
-    
+
+
 
 {% comment %} Modal Confirmacion de eliminar {% endcomment %}
 <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -143,7 +149,7 @@
 
 
     {% include 'layauts/footer.html' %}
-    <script src='{% static "js/index.js" %}'></script>>
+    <script src='{% static "js/index.js" %}'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const deleteButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
@@ -183,9 +189,6 @@
         });
     </script>
 
-
-
-    
 
 
 </body>

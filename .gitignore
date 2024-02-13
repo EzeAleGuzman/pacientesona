@@ -31,10 +31,14 @@ env/
 node_modules/
 bower_components/
 
+static_src/
+
 # Distribution directories
 dist/
 build/
 *.egg-info/
+
+
 
 # Database
 db.sqlite3
